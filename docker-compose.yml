@@ -1,0 +1,29 @@
+# environment:
+#   #- MONGO_INITDB_ROOT_USERNAME=user
+#   #- MONGO_INITDB_ROOT_PASSWORD=password
+#   - MONGO_INITDB_DATABASE="diary"
+
+version: "3.1"
+
+services:
+  spacy:
+    container_name: spacy-container
+    image: spacy-image
+    build:
+      context: .
+      dockerfile: ./spacy.dockerfile
+    networks:
+      - python-network
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/spacy
+
+# volumes:
+#   mongodb:
+#     #external: true
+#   pgdata:
+
+networks:
+  python-network:
+    driver: bridge
